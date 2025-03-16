@@ -88,24 +88,17 @@ $(function(){
         t.preventDefault(); // Prevent default form submission
         var r = "https://formsubmit.co/f430876ece4dfdfce5dcc9437f554d0a"; 
         $.ajax({
-          type: "POST",
-          url: r,
-          data: $(this).serialize(),
-          success: function(i){
-            var a = "alert-" + i.type,
-                e = i.message,
-                o = '<div class="alert ' + a + '">' + e + "</div>";
-            if (a && e) {
-              $("#contact_form_1").find(".messages").html(o);
-              $("#contact_form_1")[0].reset();
-              // Try different approaches to close the modal
-              $('#myModal').modal('hide');
-              $('#myModal').removeClass('in');
-              $('.modal-backdrop').remove();
-              $('body').removeClass('modal-open');
+            type: "POST",
+            url: r,
+            data: $(this).serialize(),
+            success: function(){
+                $('#myModal').modal('hide');
+            },
+            error: function() {
+                alert("There was an error submitting the form. Please try again.");
             }
-          }
-        });
+          });
+  
         return false;
       });
 
