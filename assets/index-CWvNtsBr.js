@@ -84,26 +84,30 @@ jQuery(function(t){
 })();
 
 $(function(){
-  $("#contact_form_1").on("submit", function(t){
-    if (!t.isDefaultPrevented()) {
-      var r = "https://formsubmit.co/f430876ece4dfdfce5dcc9437f554d0a"; 
-      return $.ajax({
-        type: "POST",
-        url: r,
-        data: $(this).serialize(),
-        success: function(i){
-          var a = "alert-" + i.type,
-              e = i.message,
-              o = '<div class="alert ' + a + '">' + e + "</div>";
-          if (a && e) {
-            $("#contact_form_1").find(".messages").html(o);
-            $("#contact_form_1")[0].reset();
-            $("#myModal").modal('hide'); // Close the modal
+    $("#contact_form_1").on("submit", function(t){
+        t.preventDefault(); // Prevent default form submission
+        var r = "https://formsubmit.co/f430876ece4dfdfce5dcc9437f554d0a"; 
+        $.ajax({
+          type: "POST",
+          url: r,
+          data: $(this).serialize(),
+          success: function(i){
+            var a = "alert-" + i.type,
+                e = i.message,
+                o = '<div class="alert ' + a + '">' + e + "</div>";
+            if (a && e) {
+              $("#contact_form_1").find(".messages").html(o);
+              $("#contact_form_1")[0].reset();
+              // Try different approaches to close the modal
+              $('#myModal').modal('hide');
+              $('#myModal').removeClass('in');
+              $('.modal-backdrop').remove();
+              $('body').removeClass('modal-open');
+            }
           }
-        }
-      }), false;
-    }
-  });
+        });
+        return false;
+      });
 
   $("#contact_form_2").on("submit", function(t){
     if (!t.isDefaultPrevented()) {
