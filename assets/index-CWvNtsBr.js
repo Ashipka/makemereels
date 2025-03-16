@@ -98,6 +98,7 @@ $(function(){
           if (a && e) {
             $("#contact_form_1").find(".messages").html(o);
             $("#contact_form_1")[0].reset();
+            $("#myModal").modal('hide'); // Close the modal
           }
         }
       }), false;
