@@ -86,12 +86,13 @@ jQuery(function(t){
 $(function(){
     $("#contact_form_1").on("submit", function(t){
         t.preventDefault(); // Prevent default form submission
-        var r = "https://formsubmit.co/f430876ece4dfdfce5dcc9437f554d0a"; 
+        var r = "https://formsubmit.co/subscription@makemereels.com"; 
         $.ajax({
             type: "POST",
             url: r,
             data: $(this).serialize(),
             success: function(){
+                $("#contact_form_1")[0].reset();
                 $('#myModal').modal('hide');
             },
             error: function() {
@@ -104,19 +105,13 @@ $(function(){
 
   $("#contact_form_2").on("submit", function(t){
     if (!t.isDefaultPrevented()) {
-      var r = "https://formsubmit.co/f430876ece4dfdfce5dcc9437f554d0a"; 
+      var r = "https://formsubmit.co/subscription@makemereels.com"; 
       return $.ajax({
         type: "POST",
         url: r,
         data: $(this).serialize(),
         success: function(i){
-          var a = "alert-" + i.type,
-              e = i.message,
-              o = '<div class="alert ' + a + '">' + e + "</div>";
-          if (a && e) {
-            $("#contact_form_2").find(".messages").html(o);
             $("#contact_form_2")[0].reset();
-          }
         }
       }), false;
     }
