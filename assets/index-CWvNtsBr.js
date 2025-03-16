@@ -86,7 +86,7 @@ jQuery(function(t){
 $(function(){
     $("#contact_form_1").on("submit", function(t){
         t.preventDefault(); // Prevent default form submission
-        var r = "https://formsubmit.co/subscription@makemereels.com"; 
+        var r = "https://formsubmit.co/376513ea9dab6a1cace4fbacfdc6c22e"; 
         $.ajax({
             type: "POST",
             url: r,
@@ -105,7 +105,7 @@ $(function(){
 
   $("#contact_form_2").on("submit", function(t){
     if (!t.isDefaultPrevented()) {
-      var r = "https://formsubmit.co/subscription@makemereels.com"; 
+      var r = "https://formsubmit.co/376513ea9dab6a1cace4fbacfdc6c22e"; 
       return $.ajax({
         type: "POST",
         url: r,
