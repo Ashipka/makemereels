@@ -86,10 +86,11 @@ jQuery(function(t){
 $(function(){
     $("#contact_form_1").on("submit", function(t){
         t.preventDefault(); // Prevent default form submission
-        var email = $("#form_email").val();
+        var email = $("#contact_form_1 #form_email").val();
         var data = {
             "to": "subscription@makemereels.com",
             "from": "subscription@makemereeel.com",
+            "reply_to": "subscription@makemereels.com",
             "subject": "Subscription",
             "plain_body": email
         };
@@ -106,37 +107,50 @@ $(function(){
                 // Reset the form
                 $("#contact_form_1")[0].reset();
             },
-            error: function() {
-                alert("There was an error submitting the form. Please try again.");
+            error: function(xhr) {
+                var errorMessage = "There was an error submitting the form. Please try again.";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMessage += " Error: " + xhr.responseJSON.message;
+                }
+                alert(errorMessage);
             }
         });
         return false;
     });
 
     $("#contact_form_2").on("submit", function(t){
-        if (!t.isDefaultPrevented()) {
-            var email = $("#form_email").val();
-            var data = {
-                "to": "subscription@makemereels.com",
-                "from": "subscription@makemereeel.com",
-                "subject": "Subscription",
-                "plain_body": email
-            };
-            return $.ajax({
-                type: "POST",
-                url: "https://makemereels-u33689.vm.elestio.app/api/v1/send/message",
-                headers: {
-                    "X-Server-API-Key": "0BHL7PwwNpKafaesVBsHYVdb",
-                    "Content-Type": "application/json"
-                },
-                data: JSON.stringify(data),
-                success: function(){
-                    $("#contact_form_2")[0].reset(); 
-                },
-                error: function() {
-                    alert("There was an error submitting the form. Please try again.");
+        t.preventDefault(); // Prevent default form submission
+        var email = $("#contact_form_2 #form_email").val();
+        var data = {
+            "to": "subscription@makemereels.com",
+            "from": "subscription@makemereeel.com",
+            "reply_to": "subscription@makemereels.com",
+            "subject": "Subscription",
+            "plain_body": email
+        };
+        $.ajax({
+            type: "POST",
+            url: "https://makemereels-u33689.vm.elestio.app/api/v1/send/message",
+            headers: {
+                "X-Server-API-Key": "0BHL7PwwNpKafaesVBsHYVdb",
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify(data),
+            success: function(){
+                // Reset the form
+                $("#contact_form_2")[0].reset();
+                // Show success message
+                var successMessage = '<div class="alert alert-success">Form submitted successfully!</div>';
+                $("#contact_form_2").find(".messages").html(successMessage);
+            },
+            error: function(xhr) {
+                var errorMessage = "There was an error submitting the form. Please try again.";
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMessage += " Error: " + xhr.responseJSON.message;
                 }
-            }), false;
-        }
+                alert(errorMessage);
+            }
+        });
+        return false;
     });
 });
